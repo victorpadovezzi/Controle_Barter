@@ -1,0 +1,261 @@
+{
+  "type": "message",
+  "attachments": [
+    {
+      "contentType": "application/vnd.microsoft.card.adaptive",
+      "content": {
+        "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+        "type": "AdaptiveCard",
+        "version": "1.4",
+        "body": [
+
+          // ── HEADER ──────────────────────────────────────────────────────
+          {
+            "type": "ColumnSet",
+            "columns": [
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  { "type": "TextBlock", "text": "Controle de Entregas — Barter", "size": "Small", "color": "Accent", "weight": "Bolder" },
+                  { "type": "TextBlock", "text": "${numConfirmacao}", "size": "ExtraLarge", "weight": "Bolder", "spacing": "None" },
+                  { "type": "TextBlock", "text": "${nomeCliente}  |  @${carteira}", "size": "Small", "isSubtle": true, "spacing": "None" }
+                ]
+              },
+              {
+                "type": "Column", "width": "auto",
+                "items": [
+                  { "type": "TextBlock", "text": "${statusLiberacao}", "color": "Accent", "weight": "Bolder", "size": "Small" },
+                  { "type": "TextBlock", "text": "${fabricante}", "size": "Small", "isSubtle": true, "spacing": "None" }
+                ]
+              }
+            ]
+          },
+
+          // ── STATUS ENTREGA ───────────────────────────────────────────────
+          {
+            "type": "Input.ChoiceSet",
+            "id": "statusLiberacao",
+            "style": "compact",
+            "label": "Status de entrega",
+            "value": "${statusLiberacao}",
+            "choices": [
+              { "title": "Aguardando liberação",   "value": "Aguardando liberação" },
+              { "title": "Liberado sem entrega",   "value": "Liberado sem entrega" },
+              { "title": "Em trânsito",            "value": "Em trânsito" },
+              { "title": "Entregue parcialmente",  "value": "Entregue parcialmente" },
+              { "title": "Entregue",               "value": "Entregue" },
+              { "title": "Cancelado",              "value": "Cancelado" }
+            ]
+          },
+
+          // ── DADOS NEGÓCIO ────────────────────────────────────────────────
+          {
+            "type": "ColumnSet",
+            "style": "emphasis",
+            "columns": [
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  { "type": "TextBlock", "text": "PRODUTO", "size": "Small", "weight": "Bolder", "isSubtle": true },
+                  { "type": "TextBlock", "text": "${produto}", "size": "Small", "spacing": "None" }
+                ]
+              },
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  { "type": "TextBlock", "text": "QTDE TOTAL", "size": "Small", "weight": "Bolder", "isSubtle": true },
+                  { "type": "TextBlock", "text": "${qtdeTotal}", "size": "Small", "spacing": "None" }
+                ]
+              },
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  { "type": "TextBlock", "text": "Nº PEDIDO", "size": "Small", "weight": "Bolder", "isSubtle": true },
+                  { "type": "TextBlock", "text": "${nPedidoFabricante}", "size": "Small", "spacing": "None" }
+                ]
+              },
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  { "type": "TextBlock", "text": "DATA LIMITE", "size": "Small", "weight": "Bolder", "isSubtle": true },
+                  { "type": "TextBlock", "text": "${dataLimiteEntrega}", "size": "Small", "spacing": "None", "color": "${corDataLimite}" }
+                ]
+              }
+            ]
+          },
+
+          // ── LOGÍSTICA ────────────────────────────────────────────────────
+          {
+            "type": "TextBlock",
+            "text": "DADOS LOGÍSTICOS — Versão ${liberacaoVersao}",
+            "size": "Small", "weight": "Bolder", "isSubtle": true,
+            "separator": true, "spacing": "Small"
+          },
+          {
+            "type": "Input.Text",
+            "id": "roteiroLogistico",
+            "label": "Roteiro de entrega",
+            "isMultiline": true,
+            "placeholder": "Descreva o roteiro detalhado...",
+            "value": "${roteiroLogistico}"
+          },
+          {
+            "type": "Input.Text",
+            "id": "linkGoogleMaps",
+            "label": "Link Google Maps",
+            "placeholder": "https://maps.google.com/...",
+            "value": "${linkGoogleMaps}"
+          },
+          {
+            "type": "ColumnSet",
+            "columns": [
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  { "type": "Input.Text", "id": "cadenciaRecebimento", "label": "Cadência de recebimento", "placeholder": "Ex: 2 carretas/dia", "value": "${cadenciaRecebimento}" }
+                ]
+              },
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  { "type": "Input.Text", "id": "horarioRecebimento", "label": "Horários de recebimento", "placeholder": "Ex: Seg-Sex 07h-18h", "value": "${horarioRecebimento}" }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Input.Text",
+            "id": "contatoFazenda",
+            "label": "Contato da fazenda",
+            "placeholder": "Nome e telefone do responsável",
+            "value": "${contatoFazenda}"
+          },
+          {
+            "type": "Input.Text",
+            "id": "observacaoLogistica",
+            "label": "Observações da entrega",
+            "isMultiline": true,
+            "placeholder": "Instruções especiais, restrições...",
+            "value": "${observacaoLogistica}"
+          },
+
+          // ── CONTROLE DE VOLUME ───────────────────────────────────────────
+          {
+            "type": "TextBlock",
+            "text": "CONTROLE DE VOLUME ENTREGUE",
+            "size": "Small", "weight": "Bolder", "isSubtle": true,
+            "separator": true, "spacing": "Small"
+          },
+          {
+            "type": "ColumnSet",
+            "style": "emphasis",
+            "columns": [
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  { "type": "TextBlock", "text": "CONTRATADO", "size": "Small", "weight": "Bolder", "isSubtle": true },
+                  { "type": "TextBlock", "text": "${qtdeTotal}", "size": "Small", "spacing": "None" }
+                ]
+              },
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  { "type": "TextBlock", "text": "ENTREGUE ACUMULADO", "size": "Small", "weight": "Bolder", "isSubtle": true },
+                  { "type": "TextBlock", "text": "${volumeEntregueAcumulado}", "size": "Small", "spacing": "None", "color": "Good" }
+                ]
+              },
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  { "type": "TextBlock", "text": "SALDO", "size": "Small", "weight": "Bolder", "isSubtle": true },
+                  { "type": "TextBlock", "text": "${saldoEntregar}", "size": "Small", "spacing": "None" }
+                ]
+              },
+              {
+                "type": "Column", "width": "auto",
+                "items": [
+                  { "type": "TextBlock", "text": "PROGRESSO", "size": "Small", "weight": "Bolder", "isSubtle": true },
+                  { "type": "TextBlock", "text": "${pctEntregue}%", "size": "Small", "weight": "Bolder", "spacing": "None", "color": "Good" }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "ColumnSet",
+            "columns": [
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  { "type": "Input.Date", "id": "dataLancamento", "label": "Data do relatório" }
+                ]
+              },
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  { "type": "Input.Text", "id": "volumeAcumuladoNovo", "label": "Volume acumulado (t)", "placeholder": "Ex: 48" }
+                ]
+              },
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  { "type": "Input.Text", "id": "obsLancamento", "label": "Observação", "placeholder": "Obs do relatório..." }
+                ]
+              }
+            ]
+          },
+
+          // ── E-MAIL LIBERAÇÃO ─────────────────────────────────────────────
+          {
+            "type": "TextBlock",
+            "text": "ENVIO DE LIBERAÇÃO",
+            "size": "Small", "weight": "Bolder", "isSubtle": true,
+            "separator": true, "spacing": "Small"
+          },
+          {
+            "type": "Input.Text",
+            "id": "emailLiberacao",
+            "label": "Enviar liberação para (fabricante)",
+            "placeholder": "email@exemplo.com, email2@exemplo.com"
+          },
+
+          // ── LOG ──────────────────────────────────────────────────────────
+          {
+            "type": "TextBlock",
+            "text": "Versão lib.: ${liberacaoVersao}  |  Última sync: ${ultimaSync}  |  Por: ${ultimoEnvioPor}",
+            "size": "Small", "isSubtle": true,
+            "separator": true, "spacing": "Small", "wrap": true
+          }
+
+        ],
+        "actions": [
+          {
+            "type": "Action.Submit",
+            "title": "✅ Liberar entrega",
+            "data": { "acao": "liberarEntrega", "numConfirmacao": "${numConfirmacao}" },
+            "style": "positive"
+          },
+          {
+            "type": "Action.Submit",
+            "title": "📧 Enviar liberação",
+            "data": { "acao": "enviarLiberacao", "numConfirmacao": "${numConfirmacao}" }
+          },
+          {
+            "type": "Action.Submit",
+            "title": "📊 Atualizar volume",
+            "data": { "acao": "atualizarVolume", "numConfirmacao": "${numConfirmacao}" }
+          },
+          {
+            "type": "Action.Submit",
+            "title": "💾 Salvar PDF logística",
+            "data": { "acao": "salvarPDFLogistica", "numConfirmacao": "${numConfirmacao}" }
+          },
+          {
+            "type": "Action.Submit",
+            "title": "🔄 Sincronizar com Lists",
+            "data": { "acao": "sincronizar", "numConfirmacao": "${numConfirmacao}" }
+          }
+        ]
+      }
+    }
+  ]
+}

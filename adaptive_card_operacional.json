@@ -1,0 +1,542 @@
+{
+  "type": "message",
+  "attachments": [
+    {
+      "contentType": "application/vnd.microsoft.card.adaptive",
+      "content": {
+        "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+        "type": "AdaptiveCard",
+        "version": "1.4",
+        "body": [
+
+          // ── HEADER ──────────────────────────────────────────────────────
+          {
+            "type": "ColumnSet",
+            "columns": [
+              {
+                "type": "Column",
+                "width": "stretch",
+                "items": [
+                  {
+                    "type": "TextBlock",
+                    "text": "Confirmação de Negócio — Barter",
+                    "size": "Small",
+                    "color": "Accent",
+                    "weight": "Bolder"
+                  },
+                  {
+                    "type": "TextBlock",
+                    "text": "${numConfirmacao}",
+                    "size": "ExtraLarge",
+                    "weight": "Bolder",
+                    "spacing": "None"
+                  },
+                  {
+                    "type": "TextBlock",
+                    "text": "@${carteira} — ${dataNegocio}",
+                    "size": "Small",
+                    "isSubtle": true,
+                    "spacing": "None"
+                  }
+                ]
+              },
+              {
+                "type": "Column",
+                "width": "auto",
+                "items": [
+                  {
+                    "type": "TextBlock",
+                    "text": "${statusAprovacao}",
+                    "color": "Good",
+                    "weight": "Bolder",
+                    "size": "Small"
+                  },
+                  {
+                    "type": "TextBlock",
+                    "text": "${operacao}",
+                    "color": "Accent",
+                    "size": "Small",
+                    "spacing": "None"
+                  },
+                  {
+                    "type": "TextBlock",
+                    "text": "${moeda}",
+                    "color": "Warning",
+                    "size": "Small",
+                    "spacing": "None"
+                  }
+                ]
+              }
+            ]
+          },
+
+          // ── STATUS DO NEGÓCIO ────────────────────────────────────────────
+          {
+            "type": "ColumnSet",
+            "style": "emphasis",
+            "bleed": true,
+            "columns": [
+              {
+                "type": "Column",
+                "width": "auto",
+                "items": [
+                  {
+                    "type": "TextBlock",
+                    "text": "STATUS DO NEGÓCIO",
+                    "size": "Small",
+                    "weight": "Bolder",
+                    "isSubtle": true
+                  }
+                ]
+              },
+              {
+                "type": "Column",
+                "width": "stretch",
+                "items": [
+                  {
+                    "type": "Input.ChoiceSet",
+                    "id": "statusNegocio",
+                    "style": "compact",
+                    "value": "${statusNegocio}",
+                    "choices": [
+                      { "title": "Confirmado",             "value": "Confirmado" },
+                      { "title": "Aguardando documentos",  "value": "Aguardando documentos" },
+                      { "title": "Documentos assinados",   "value": "Documentos assinados" },
+                      { "title": "Concluído",              "value": "Concluído" },
+                      { "title": "Cancelado",              "value": "Cancelado" }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+
+          // ── DADOS GERAIS ─────────────────────────────────────────────────
+          {
+            "type": "ColumnSet",
+            "columns": [
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  { "type": "TextBlock", "text": "CLIENTE", "size": "Small", "isSubtle": true, "weight": "Bolder" },
+                  { "type": "TextBlock", "text": "${nomeCliente}", "size": "Small", "spacing": "None" }
+                ]
+              },
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  { "type": "TextBlock", "text": "SAFRA INSUMO", "size": "Small", "isSubtle": true, "weight": "Bolder" },
+                  { "type": "TextBlock", "text": "${safraInsumo}", "size": "Small", "spacing": "None" }
+                ]
+              },
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  { "type": "TextBlock", "text": "SAFRA GRÃO", "size": "Small", "isSubtle": true, "weight": "Bolder" },
+                  { "type": "TextBlock", "text": "${safraGrao}", "size": "Small", "spacing": "None" }
+                ]
+              },
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  { "type": "TextBlock", "text": "MODALIDADE", "size": "Small", "isSubtle": true, "weight": "Bolder" },
+                  { "type": "TextBlock", "text": "${modalidade}", "size": "Small", "spacing": "None" }
+                ]
+              }
+            ]
+          },
+
+          // ── FABRICANTES ──────────────────────────────────────────────────
+          {
+            "type": "TextBlock",
+            "text": "FABRICANTES & PRODUTOS",
+            "size": "Small",
+            "weight": "Bolder",
+            "isSubtle": true,
+            "separator": true,
+            "spacing": "Small"
+          },
+          {
+            "type": "ColumnSet",
+            "style": "emphasis",
+            "columns": [
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  { "type": "TextBlock", "text": "FABRICANTE", "size": "Small", "isSubtle": true, "weight": "Bolder" },
+                  { "type": "TextBlock", "text": "${fabricante}", "size": "Small", "spacing": "None" }
+                ]
+              },
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  { "type": "TextBlock", "text": "PRODUTO", "size": "Small", "isSubtle": true, "weight": "Bolder" },
+                  { "type": "TextBlock", "text": "${produto}", "size": "Small", "spacing": "None" }
+                ]
+              },
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  { "type": "TextBlock", "text": "QTDE TOTAL", "size": "Small", "isSubtle": true, "weight": "Bolder" },
+                  { "type": "TextBlock", "text": "${qtdeTotal}", "size": "Small", "spacing": "None" }
+                ]
+              },
+              {
+                "type": "Column", "width": "auto",
+                "items": [
+                  { "type": "TextBlock", "text": "INCOTERMS", "size": "Small", "isSubtle": true, "weight": "Bolder" },
+                  { "type": "TextBlock", "text": "${icontermsInsumo}", "size": "Small", "spacing": "None" }
+                ]
+              }
+            ]
+          },
+
+          // ── ENTREGAS (linhas) ────────────────────────────────────────────
+          {
+            "type": "TextBlock",
+            "text": "ENTREGAS — ${totalEntregas} entrega(s)",
+            "size": "Small",
+            "weight": "Bolder",
+            "isSubtle": true,
+            "separator": true,
+            "spacing": "Small"
+          },
+          {
+            "type": "ColumnSet",
+            "style": "emphasis",
+            "columns": [
+              {
+                "type": "Column", "width": "auto",
+                "items": [
+                  { "type": "TextBlock", "text": "ENTREGA", "size": "Small", "weight": "Bolder", "isSubtle": true },
+                  { "type": "TextBlock", "text": "${entrega1Seq}", "size": "Small", "spacing": "None" }
+                ]
+              },
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  { "type": "TextBlock", "text": "ROTEIRO", "size": "Small", "weight": "Bolder", "isSubtle": true },
+                  { "type": "TextBlock", "text": "${entrega1Roteiro}", "size": "Small", "spacing": "None", "wrap": true }
+                ]
+              },
+              {
+                "type": "Column", "width": "auto",
+                "items": [
+                  { "type": "TextBlock", "text": "QTDE", "size": "Small", "weight": "Bolder", "isSubtle": true },
+                  { "type": "TextBlock", "text": "${entrega1Qtde}", "size": "Small", "spacing": "None" }
+                ]
+              },
+              {
+                "type": "Column", "width": "auto",
+                "items": [
+                  { "type": "TextBlock", "text": "REL. TROCA", "size": "Small", "weight": "Bolder", "isSubtle": true },
+                  { "type": "TextBlock", "text": "${entrega1RelTroca}", "size": "Small", "spacing": "None" }
+                ]
+              },
+              {
+                "type": "Column", "width": "auto",
+                "items": [
+                  { "type": "TextBlock", "text": "GRÃO (kg)", "size": "Small", "weight": "Bolder", "isSubtle": true },
+                  { "type": "TextBlock", "text": "${entrega1QtdeGrao}", "size": "Small", "spacing": "None" }
+                ]
+              }
+            ]
+          },
+
+          // ── TOTAL CONSOLIDADO ────────────────────────────────────────────
+          {
+            "type": "ColumnSet",
+            "style": "good",
+            "bleed": true,
+            "columns": [
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  { "type": "TextBlock", "text": "TOTAL INSUMO", "size": "Small", "weight": "Bolder" },
+                  { "type": "TextBlock", "text": "${totalInsumo}", "size": "Medium", "weight": "Bolder", "spacing": "None" }
+                ]
+              },
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  { "type": "TextBlock", "text": "GRÃO TOTAL (kg)", "size": "Small", "weight": "Bolder" },
+                  { "type": "TextBlock", "text": "${totalGraoKg}", "size": "Medium", "weight": "Bolder", "spacing": "None" }
+                ]
+              },
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  { "type": "TextBlock", "text": "GRÃO TOTAL (sc)", "size": "Small", "weight": "Bolder" },
+                  { "type": "TextBlock", "text": "${totalGraoSc}", "size": "Medium", "weight": "Bolder", "spacing": "None" }
+                ]
+              },
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  { "type": "TextBlock", "text": "VLR TOTAL COMPRA", "size": "Small", "weight": "Bolder" },
+                  { "type": "TextBlock", "text": "${vlrTotalCompra}", "size": "Medium", "weight": "Bolder", "spacing": "None" }
+                ]
+              }
+            ]
+          },
+
+          // ── TABS: PRODUTOR ───────────────────────────────────────────────
+          {
+            "type": "TextBlock",
+            "text": "PRODUTOR — CONTROLE DE ASSINATURA",
+            "size": "Small",
+            "weight": "Bolder",
+            "isSubtle": true,
+            "separator": true,
+            "spacing": "Small"
+          },
+          {
+            "type": "ColumnSet",
+            "columns": [
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  { "type": "TextBlock", "text": "Contrato de grãos assinado?", "size": "Small" },
+                  {
+                    "type": "Input.Toggle",
+                    "id": "contratoGraoAssinado",
+                    "title": "Sim",
+                    "value": "${contratoGraoAssinado}",
+                    "valueOn": "true",
+                    "valueOff": "false"
+                  }
+                ]
+              },
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  { "type": "TextBlock", "text": "Cessão de crédito assinada?", "size": "Small" },
+                  {
+                    "type": "Input.Toggle",
+                    "id": "cessaoCreditoAssinada",
+                    "title": "Sim",
+                    "value": "${cessaoCreditoAssinada}",
+                    "valueOn": "true",
+                    "valueOff": "false"
+                  }
+                ]
+              },
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  { "type": "TextBlock", "text": "Pedidos de insumos assinados?", "size": "Small" },
+                  {
+                    "type": "Input.Toggle",
+                    "id": "pedidosInsumoAssinados",
+                    "title": "Sim",
+                    "value": "${pedidosInsumoAssinados}",
+                    "valueOn": "true",
+                    "valueOff": "false"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Input.Text",
+            "id": "observacaoProdutor",
+            "placeholder": "Observações para o Produtor Rural...",
+            "isMultiline": true,
+            "value": "${observacaoProdutor}",
+            "label": "Observações — Produtor"
+          },
+
+          // ── INTERNO ──────────────────────────────────────────────────────
+          {
+            "type": "TextBlock",
+            "text": "INTERNO — CONTROLE DE CONTRATOS",
+            "size": "Small",
+            "weight": "Bolder",
+            "isSubtle": true,
+            "separator": true,
+            "spacing": "Small"
+          },
+          {
+            "type": "Input.Text",
+            "id": "nContratoGrao",
+            "placeholder": "Ex: 4700025440",
+            "value": "${nContratoGrao}",
+            "label": "Nº Contrato de Grão"
+          },
+          {
+            "type": "ColumnSet",
+            "isVisible": "${isRevenda}",
+            "columns": [
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  {
+                    "type": "Input.Text",
+                    "id": "nSapCompra",
+                    "placeholder": "Ex: 4500012345",
+                    "value": "${nSapCompra}",
+                    "label": "Nº SAP Compra"
+                  }
+                ]
+              },
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  {
+                    "type": "Input.Text",
+                    "id": "nSapVenda",
+                    "placeholder": "Ex: 9000012345",
+                    "value": "${nSapVenda}",
+                    "label": "Nº SAP Venda"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Input.Text",
+            "id": "observacaoInterna",
+            "placeholder": "Observações internas...",
+            "isMultiline": true,
+            "value": "${observacaoInterna}",
+            "label": "Observações — Interno"
+          },
+
+          // ── FABRICANTE ───────────────────────────────────────────────────
+          {
+            "type": "TextBlock",
+            "text": "FABRICANTE — PEDIDO DE COMPRA",
+            "size": "Small",
+            "weight": "Bolder",
+            "isSubtle": true,
+            "separator": true,
+            "spacing": "Small"
+          },
+          {
+            "type": "Input.Text",
+            "id": "nPedidoFabricante",
+            "placeholder": "Ex: 49124/1",
+            "value": "${nPedidoFabricante}",
+            "label": "Nº Pedido — ${fabricante}"
+          },
+          {
+            "type": "Input.Text",
+            "id": "observacaoFabricante",
+            "placeholder": "Observações para o Fabricante...",
+            "isMultiline": true,
+            "value": "${observacaoFabricante}",
+            "label": "Observações — Fabricante"
+          },
+
+          // ── E-MAILS ──────────────────────────────────────────────────────
+          {
+            "type": "TextBlock",
+            "text": "ENVIO DE CONFIRMAÇÕES",
+            "size": "Small",
+            "weight": "Bolder",
+            "isSubtle": true,
+            "separator": true,
+            "spacing": "Small"
+          },
+          {
+            "type": "Input.Text",
+            "id": "emailProdutor",
+            "placeholder": "email@exemplo.com, email2@exemplo.com",
+            "label": "E-mail — Produtor Rural"
+          },
+          {
+            "type": "Input.Text",
+            "id": "emailCarteira",
+            "placeholder": "email@exemplo.com, email2@exemplo.com",
+            "label": "E-mail — Responsável Carteira"
+          },
+          {
+            "type": "Input.Text",
+            "id": "emailFabricante",
+            "placeholder": "email@exemplo.com, email2@exemplo.com",
+            "label": "E-mail — Fabricante"
+          },
+
+          // ── LOG ──────────────────────────────────────────────────────────
+          {
+            "type": "TextBlock",
+            "text": "Versão: ${versao}  |  Última sync: ${ultimaSync}  |  Por: ${ultimoEnvioPor}",
+            "size": "Small",
+            "isSubtle": true,
+            "separator": true,
+            "spacing": "Small",
+            "wrap": true
+          }
+
+        ],
+
+        "actions": [
+
+          // ── SALVAR CONFIRMAÇÕES ──────────────────────────────────────────
+          {
+            "type": "Action.Submit",
+            "title": "💾 Salvar confirmações",
+            "id": "acaoSalvar",
+            "data": {
+              "acao": "salvar",
+              "numConfirmacao": "${numConfirmacao}"
+            },
+            "style": "positive"
+          },
+
+          // ── ENVIAR E-MAILS ───────────────────────────────────────────────
+          {
+            "type": "Action.Submit",
+            "title": "📧 Enviar Produtor",
+            "id": "acaoEnviarProdutor",
+            "data": {
+              "acao": "enviarProdutor",
+              "numConfirmacao": "${numConfirmacao}"
+            }
+          },
+          {
+            "type": "Action.Submit",
+            "title": "📧 Enviar Carteira",
+            "id": "acaoEnviarCarteira",
+            "data": {
+              "acao": "enviarCarteira",
+              "numConfirmacao": "${numConfirmacao}"
+            }
+          },
+          {
+            "type": "Action.Submit",
+            "title": "📧 Enviar Fabricante",
+            "id": "acaoEnviarFabricante",
+            "data": {
+              "acao": "enviarFabricante",
+              "numConfirmacao": "${numConfirmacao}"
+            }
+          },
+
+          // ── SINCRONIZAR ──────────────────────────────────────────────────
+          {
+            "type": "Action.Submit",
+            "title": "🔄 Sincronizar com Lists",
+            "id": "acaoSincronizar",
+            "data": {
+              "acao": "sincronizar",
+              "numConfirmacao": "${numConfirmacao}"
+            }
+          },
+
+          // ── REENVIAR ─────────────────────────────────────────────────────
+          {
+            "type": "Action.Submit",
+            "title": "↺ Reenviar confirmações",
+            "id": "acaoReenviar",
+            "data": {
+              "acao": "reenviar",
+              "numConfirmacao": "${numConfirmacao}"
+            }
+          }
+
+        ]
+      }
+    }
+  ]
+}

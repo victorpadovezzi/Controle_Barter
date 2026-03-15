@@ -1,0 +1,354 @@
+{
+  "type": "message",
+  "attachments": [
+    {
+      "contentType": "application/vnd.microsoft.card.adaptive",
+      "content": {
+        "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+        "type": "AdaptiveCard",
+        "version": "1.4",
+        "body": [
+
+          // ── HEADER ──────────────────────────────────────────────────────
+          {
+            "type": "ColumnSet",
+            "columns": [
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  { "type": "TextBlock", "text": "Controle Financeiro — Barter", "size": "Small", "color": "Accent", "weight": "Bolder" },
+                  { "type": "TextBlock", "text": "${numConfirmacao}", "size": "ExtraLarge", "weight": "Bolder", "spacing": "None" },
+                  { "type": "TextBlock", "text": "${nomeCliente}  |  ${fabricante}", "size": "Small", "isSubtle": true, "spacing": "None" }
+                ]
+              },
+              {
+                "type": "Column", "width": "auto",
+                "items": [
+                  { "type": "TextBlock", "text": "${statusFinanceiro}", "color": "Warning", "weight": "Bolder", "size": "Small" },
+                  { "type": "TextBlock", "text": "${operacao}  ·  ${moeda}", "size": "Small", "isSubtle": true, "spacing": "None" }
+                ]
+              }
+            ]
+          },
+
+          // ── STATUS FINANCEIRO ────────────────────────────────────────────
+          {
+            "type": "Input.ChoiceSet",
+            "id": "statusFinanceiro",
+            "style": "compact",
+            "label": "Status financeiro",
+            "value": "${statusFinanceiro}",
+            "choices": [
+              { "title": "Aguardando vencimento",  "value": "Aguardando vencimento" },
+              { "title": "Pendente de pagamento",  "value": "Pendente de pagamento" },
+              { "title": "Pagamento parcial",      "value": "Pagamento parcial" },
+              { "title": "Pago",                   "value": "Pago" },
+              { "title": "Pago em atraso",         "value": "Pago em atraso" },
+              { "title": "Cancelado",              "value": "Cancelado" }
+            ]
+          },
+
+          // ── CONTADOR VENCIMENTO ──────────────────────────────────────────
+          {
+            "type": "ColumnSet",
+            "style": "${bannerEstilo}",
+            "bleed": true,
+            "columns": [
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  { "type": "TextBlock", "text": "${vencTitulo}", "weight": "Bolder", "size": "Small" },
+                  { "type": "TextBlock", "text": "Vencimento: ${dataVencimento}", "size": "Small", "spacing": "None" }
+                ]
+              },
+              {
+                "type": "Column", "width": "auto",
+                "items": [
+                  { "type": "TextBlock", "text": "${diasContador}", "size": "ExtraLarge", "weight": "Bolder", "horizontalAlignment": "Right" },
+                  { "type": "TextBlock", "text": "${diasLabel}", "size": "Small", "isSubtle": true, "horizontalAlignment": "Right", "spacing": "None" }
+                ]
+              }
+            ]
+          },
+
+          // ── ALERTA VENCIDO ───────────────────────────────────────────────
+          {
+            "type": "TextBlock",
+            "text": "⚠ PAGAMENTO VENCIDO E NÃO QUITADO — ${diasAtraso} dia(s) em atraso. Regularize o pagamento.",
+            "color": "Attention",
+            "weight": "Bolder",
+            "size": "Small",
+            "wrap": true,
+            "isVisible": "${isVencidoNaoPago}"
+          },
+
+          // ── INFORMAÇÕES FINANCEIRAS ──────────────────────────────────────
+          {
+            "type": "TextBlock",
+            "text": "INFORMAÇÕES FINANCEIRAS",
+            "size": "Small", "weight": "Bolder", "isSubtle": true,
+            "separator": true, "spacing": "Small"
+          },
+          {
+            "type": "ColumnSet",
+            "style": "emphasis",
+            "columns": [
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  { "type": "TextBlock", "text": "VLR UNIT. COMPRA", "size": "Small", "weight": "Bolder", "isSubtle": true },
+                  { "type": "TextBlock", "text": "${vlrUnitCompra}", "size": "Small", "spacing": "None" }
+                ]
+              },
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  { "type": "TextBlock", "text": "VLR TOTAL COMPRA", "size": "Small", "weight": "Bolder", "isSubtle": true },
+                  { "type": "TextBlock", "text": "${vlrTotalCompra}", "size": "Small", "spacing": "None" }
+                ]
+              },
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  { "type": "TextBlock", "text": "MOEDA", "size": "Small", "weight": "Bolder", "isSubtle": true },
+                  { "type": "TextBlock", "text": "${moeda}", "size": "Small", "spacing": "None" }
+                ]
+              },
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  { "type": "TextBlock", "text": "VENCIMENTO", "size": "Small", "weight": "Bolder", "isSubtle": true },
+                  { "type": "TextBlock", "text": "${dataVencimento}", "size": "Small", "spacing": "None" }
+                ]
+              }
+            ]
+          },
+
+          // ── DADOS FABRICANTE ─────────────────────────────────────────────
+          {
+            "type": "ColumnSet",
+            "style": "emphasis",
+            "columns": [
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  { "type": "TextBlock", "text": "FABRICANTE", "size": "Small", "weight": "Bolder", "isSubtle": true },
+                  { "type": "TextBlock", "text": "${fabricante}", "size": "Small", "spacing": "None" }
+                ]
+              },
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  { "type": "TextBlock", "text": "PRODUTO", "size": "Small", "weight": "Bolder", "isSubtle": true },
+                  { "type": "TextBlock", "text": "${produto}", "size": "Small", "spacing": "None" }
+                ]
+              },
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  { "type": "TextBlock", "text": "Nº PEDIDO", "size": "Small", "weight": "Bolder", "isSubtle": true },
+                  { "type": "TextBlock", "text": "${nPedidoFabricante}", "size": "Small", "spacing": "None" }
+                ]
+              }
+            ]
+          },
+
+          // ── PAGAMENTO 1 ──────────────────────────────────────────────────
+          {
+            "type": "TextBlock",
+            "text": "PAGAMENTO 1",
+            "size": "Small", "weight": "Bolder", "isSubtle": true,
+            "separator": true, "spacing": "Small"
+          },
+          {
+            "type": "ColumnSet",
+            "columns": [
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  {
+                    "type": "Input.Date",
+                    "id": "pgto1DataEfetiva",
+                    "label": "Data efetiva",
+                    "value": "${pgto1DataEfetiva}"
+                  }
+                ]
+              },
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  {
+                    "type": "Input.Text",
+                    "id": "pgto1ValorPago",
+                    "label": "Valor pago",
+                    "placeholder": "R$ 0,00",
+                    "value": "${pgto1ValorPago}"
+                  }
+                ]
+              },
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  {
+                    "type": "Input.Text",
+                    "id": "pgto1Comprovante",
+                    "label": "Comprovante (nome arquivo)",
+                    "placeholder": "comprovante.pdf",
+                    "value": "${pgto1Comprovante}"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Input.Text",
+            "id": "emailPgto1",
+            "label": "Enviar confirmação pgto 1 para",
+            "placeholder": "email@exemplo.com, email2@exemplo.com"
+          },
+
+          // ── PAGAMENTO 2 ──────────────────────────────────────────────────
+          {
+            "type": "TextBlock",
+            "text": "PAGAMENTO 2",
+            "size": "Small", "weight": "Bolder", "isSubtle": true,
+            "separator": true, "spacing": "Small"
+          },
+          {
+            "type": "ColumnSet",
+            "columns": [
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  { "type": "Input.Date", "id": "pgto2DataEfetiva", "label": "Data efetiva", "value": "${pgto2DataEfetiva}" }
+                ]
+              },
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  { "type": "Input.Text", "id": "pgto2ValorPago", "label": "Valor pago", "placeholder": "R$ 0,00", "value": "${pgto2ValorPago}" }
+                ]
+              },
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  { "type": "Input.Text", "id": "pgto2Comprovante", "label": "Comprovante (nome arquivo)", "placeholder": "comprovante.pdf", "value": "${pgto2Comprovante}" }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Input.Text",
+            "id": "emailPgto2",
+            "label": "Enviar confirmação pgto 2 para",
+            "placeholder": "email@exemplo.com, email2@exemplo.com"
+          },
+
+          // ── PAGAMENTO 3 ──────────────────────────────────────────────────
+          {
+            "type": "TextBlock",
+            "text": "PAGAMENTO 3",
+            "size": "Small", "weight": "Bolder", "isSubtle": true,
+            "separator": true, "spacing": "Small"
+          },
+          {
+            "type": "ColumnSet",
+            "columns": [
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  { "type": "Input.Date", "id": "pgto3DataEfetiva", "label": "Data efetiva", "value": "${pgto3DataEfetiva}" }
+                ]
+              },
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  { "type": "Input.Text", "id": "pgto3ValorPago", "label": "Valor pago", "placeholder": "R$ 0,00", "value": "${pgto3ValorPago}" }
+                ]
+              },
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  { "type": "Input.Text", "id": "pgto3Comprovante", "label": "Comprovante (nome arquivo)", "placeholder": "comprovante.pdf", "value": "${pgto3Comprovante}" }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Input.Text",
+            "id": "emailPgto3",
+            "label": "Enviar confirmação pgto 3 para",
+            "placeholder": "email@exemplo.com, email2@exemplo.com"
+          },
+
+          // ── CONSOLIDADO ──────────────────────────────────────────────────
+          {
+            "type": "ColumnSet",
+            "style": "good",
+            "bleed": true,
+            "columns": [
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  { "type": "TextBlock", "text": "TOTAL A PAGAR", "size": "Small", "weight": "Bolder" },
+                  { "type": "TextBlock", "text": "${vlrTotalCompra}", "weight": "Bolder", "spacing": "None" }
+                ]
+              },
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  { "type": "TextBlock", "text": "TOTAL PAGO", "size": "Small", "weight": "Bolder" },
+                  { "type": "TextBlock", "text": "${totalPago}", "weight": "Bolder", "spacing": "None" }
+                ]
+              },
+              {
+                "type": "Column", "width": "stretch",
+                "items": [
+                  { "type": "TextBlock", "text": "SALDO RESTANTE", "size": "Small", "weight": "Bolder" },
+                  { "type": "TextBlock", "text": "${saldoRestante}", "weight": "Bolder", "spacing": "None" }
+                ]
+              }
+            ]
+          },
+
+          // ── LOG ──────────────────────────────────────────────────────────
+          {
+            "type": "TextBlock",
+            "text": "Versão: ${versao}  |  Última sync: ${ultimaSync}  |  Por: ${ultimoEnvioPor}",
+            "size": "Small", "isSubtle": true,
+            "separator": true, "spacing": "Small", "wrap": true
+          }
+
+        ],
+        "actions": [
+          {
+            "type": "Action.Submit",
+            "title": "💾 Salvar pagamentos",
+            "data": { "acao": "salvarPagamentos", "numConfirmacao": "${numConfirmacao}" },
+            "style": "positive"
+          },
+          {
+            "type": "Action.Submit",
+            "title": "📧 Enviar pgto 1",
+            "data": { "acao": "enviarPgto1", "numConfirmacao": "${numConfirmacao}" }
+          },
+          {
+            "type": "Action.Submit",
+            "title": "📧 Enviar pgto 2",
+            "data": { "acao": "enviarPgto2", "numConfirmacao": "${numConfirmacao}" }
+          },
+          {
+            "type": "Action.Submit",
+            "title": "📧 Enviar pgto 3",
+            "data": { "acao": "enviarPgto3", "numConfirmacao": "${numConfirmacao}" }
+          },
+          {
+            "type": "Action.Submit",
+            "title": "🔄 Sincronizar com Lists",
+            "data": { "acao": "sincronizar", "numConfirmacao": "${numConfirmacao}" }
+          }
+        ]
+      }
+    }
+  ]
+}
